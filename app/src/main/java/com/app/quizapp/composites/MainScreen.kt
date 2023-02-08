@@ -17,7 +17,7 @@ fun Navigation() {
         }
         // Login Screen
         composable(Routes.LoginScreen.route) {
-            LoginScreen(navController = navController)
+//            LoginScreen(navController = navController)
         }
     }
 }
