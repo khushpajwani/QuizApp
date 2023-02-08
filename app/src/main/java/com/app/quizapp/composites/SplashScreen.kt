@@ -1,4 +1,4 @@
-package com.app.quizapp.activities
+package com.app.quizapp.composites
 
 import android.view.animation.OvershootInterpolator
 import androidx.compose.animation.core.tween

@@ -7,3 +7,8 @@ const val KEY_TOKEN: String = "token"
 
 object Screen {
 }
+
+object WidgetIds {
+    const val TF_LOGIN_USERNAME_ID: String = "tf_login_username"
+    const val TF_LOGIN_PASSWORD_ID: String = "tf_login_password"
+}

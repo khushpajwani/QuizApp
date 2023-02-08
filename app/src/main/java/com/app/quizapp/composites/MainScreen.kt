@@ -1,12 +1,10 @@
-package com.app.quizapp.activities
+package com.app.quizapp.composites
 
 import androidx.compose.runtime.Composable
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import com.app.quizapp.NavigationRoutes.Routes
-import com.app.quizapp.activities.ui.theme.QuizAppTheme
 
 @Composable
 fun Navigation() {
@@ -19,15 +17,7 @@ fun Navigation() {
         }
         // Login Screen
         composable(Routes.LoginScreen.route) {
-            LoginScreen()
+            LoginScreen(navController = navController)
         }
-    }
-}
-
-@Preview(showBackground = true)
-@Composable
-fun DefaultPreview() {
-    QuizAppTheme {
-        LoginScreen()
     }
 }
