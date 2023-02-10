@@ -5,9 +5,11 @@ import android.content.Context
 import android.util.Log
 import android.widget.Toast
 import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.text.ClickableText
 import androidx.compose.foundation.text.KeyboardActions
 import androidx.compose.foundation.text.KeyboardOptions
+import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.*
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.mutableStateOf
@@ -36,6 +38,7 @@ import com.app.quizapp.response.LoginResponse
 import com.app.quizapp.utils.AllEvents
 import com.app.quizapp.utils.SharedPreferenceUtil
 import com.app.quizapp.utils.WidgetIds
+import com.app.quizapp.utils.circularProgressBar
 import com.app.quizapp.viewmodel.LoginViewModel
 import kotlinx.coroutines.launch
 
@@ -52,10 +55,13 @@ fun LoginScreen(
     val userNameValue = rememberSaveable { mutableStateOf("") }
     val passwordValue = rememberSaveable { mutableStateOf("") }
     val focusManager = LocalFocusManager.current
+    var isDialogVisible = remember { mutableStateOf(false) }
+
     Column(
         modifier = Modifier
             .fillMaxWidth()
-            .fillMaxHeight(),
+            .fillMaxHeight()
+            .verticalScroll(rememberScrollState()),
         verticalArrangement = Arrangement.Center,
         horizontalAlignment = Alignment.CenterHorizontally,
     ) {
@@ -151,6 +157,11 @@ fun LoginScreen(
                 )
             )
         }
+        if (isDialogVisible.value) {
+            circularProgressBar(showDialog = true)
+        } else {
+            circularProgressBar(showDialog = false)
+        }
     }
 
     coroutine.launch {
@@ -169,6 +180,10 @@ fun LoginScreen(
                     SharedPreferenceUtil().setToken(context, loginresponse.token)
                     /*startActivity(Intent(this@LoginActivity, HomeActivity::class.java))
                     finish()*/
+                }
+                is AllEvents.Loading -> {
+                    Log.e("TAG", "LoginScreen: ${event.load}")
+                    isDialogVisible.value = event.load
                 }
                 else -> {
                     val asString = event.asString(context as Activity)

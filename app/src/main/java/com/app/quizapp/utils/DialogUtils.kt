@@ -5,15 +5,17 @@ import android.app.AlertDialog
 import android.graphics.Color
 import android.graphics.drawable.ColorDrawable
 import android.widget.LinearLayout
-import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.background
+import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.CircularProgressIndicator
-import androidx.compose.material3.MaterialTheme
-import androidx.compose.runtime.Composable
+import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.draw.alpha
-import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.window.Dialog
+import androidx.compose.ui.window.DialogProperties
 import com.app.quizapp.databinding.ProgressDialogBinding
 
 
@@ -46,16 +48,21 @@ object DialogUtils {
 }
 
 @Composable
-fun circularProgressBar(alpha: Float) {
-    Column(
-        modifier = Modifier.fillMaxWidth().fillMaxHeight(),
-        verticalArrangement = Arrangement.Center,
-        horizontalAlignment = Alignment.CenterHorizontally,
+fun circularProgressBar(showDialog: Boolean) {
+    var dialog by remember { mutableStateOf(showDialog) }
+    if (dialog) {
+        Dialog(
+            onDismissRequest = { dialog = false },
+            DialogProperties(dismissOnBackPress = false, dismissOnClickOutside = false)
         ) {
-        CircularProgressIndicator(
-            modifier = Modifier.padding(16.dp).alpha(alpha),
-            color = MaterialTheme.colorScheme.primary,
-            strokeWidth = Dp(value = 4F)
-        )
+            Box(
+                contentAlignment= Alignment.Center,
+                modifier = Modifier
+                    .size(100.dp)
+                    .background(androidx.compose.ui.graphics.Color.White, shape = RoundedCornerShape(8.dp))
+            ) {
+                CircularProgressIndicator()
+            }
+        }
     }
 }

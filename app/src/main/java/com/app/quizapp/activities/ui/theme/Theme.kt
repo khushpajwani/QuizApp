@@ -13,12 +13,12 @@ import androidx.compose.ui.platform.LocalView
 import androidx.core.view.WindowCompat
 
 private val DarkColorPalette = darkColorScheme(
-    primary = Purple200,
+    primary = colorSecondary,
     secondary = Teal200
 )
 
 private val LightColorPalette = lightColorScheme(
-    primary = Purple500,
+    primary = colorPrimary,
     secondary = Teal200
 
     /* Other default colors to override
